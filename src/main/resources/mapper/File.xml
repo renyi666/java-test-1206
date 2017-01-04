@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gaoyuan.ceshi.mapper.fileMapper">
+    <!--<select id="getByNickname" parameterType="java.util.Map"-->
+            <!--resultMap="resultMap">-->
+        <!--select * from USER-->
+        <!--<where>-->
+            <!--nickname = ${nickname}-->
+        <!--</where>-->
+    <!--</select>-->
+
+    <insert id="insertFile" parameterType="com.gaoyuan.model.File" useGeneratedKeys="true" keyProperty="id">
+
+
+ INSERT INTO user (name,path,create_time,update_time)
+          VALUES ('${name}','${path}',now().now());
+    </insert>
+
+    <resultMap id="resultMap" type="com.gaoyuan.model.File">
+        <id property="id" column="id"/>
+
+        <result property="name" column="name"/>
+
+        <result property="path" column="path"/>
+        <result property="create_time" column="create_time"/>
+        <result property="update_time" column="update_time"/>
+
+
+
+
+
+    </resultMap>
+
+
+</mapper>
