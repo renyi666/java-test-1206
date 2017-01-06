@@ -15,8 +15,7 @@
 
 <head>
 
-    <title>Login</title>
-    <%--<link rel="stylesheet" href="../css/style.css">--%>
+    <title>注册</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
@@ -24,7 +23,7 @@
 
 <section class="container">
     <div class="login">
-        <h1>Login to Web App</h1>
+        <h1>Register to Web App</h1>
         <%--<form method="post" action="index.html">--%>
         <p><input type="text" name="login" value="" class="name" placeholder="Username or Email"></p>
         <p><input type="password" name="password" value="" class="pass" placeholder="Password"></p>
@@ -34,14 +33,14 @@
                 Remember me on this computer
             </label>
         </p>
-        <p class="submit"><input type="submit" name="commit" value="Login"></p>
+        <p class="submit"><input type="submit" name="commit" value="Register"></p>
         <%--</form>--%>
         <div class="tishi"><p class="message"></p></div>
     </div>
 
-    <div class="login-help">
-        <p>register <a href="${pageContext.request.contextPath}/Test/registerpage">Click here to reset it</a>.</p>
-    </div>
+    <%--<div class="login-help">--%>
+    <%--<p>register <a href="#">Click here to reset it</a>.</p>--%>
+    <%--</div>--%>
 
 </section>
 
@@ -72,22 +71,11 @@
 
 
 <script src="../js/jquery.min.js"></script>
-
 <script src="../js/jquerycookie.js"></script>
+
 
 <script>
 
-    $(function () {
-         var u1=$.cookie("username");
-         var u2=$.cookie("password");
-
-        if(typeof (u1)!="undefined"&&typeof (u2)!="undefined"){
-
-            $('.name').val(u1);
-            $('.pass').val(u2);
-        }
-
-    })
 
     $('.submit').click(function () {
         var name = $('.name').val();
@@ -98,7 +86,7 @@
 
             return;
         }
-        if(password==""||password==null||typeof (password)=="undefined"||isNaN(password)){
+        if (password == "" || password == null || typeof (password) == "undefined" || isNaN(password)) {
 
             $('.message').text("密码错误");
             return;
@@ -106,7 +94,7 @@
 
         $.ajax(
                 {
-                    url: "${pageContext.request.contextPath}/Test/ver",
+                    url: "${pageContext.request.contextPath}/Test/register",
                     data: {
                         name: name,
                         password: password
@@ -116,6 +104,10 @@
                     success: function (data) {
 
                         if (data.msg == "success") {
+                            $.cookie('username',name);
+                            $.cookie('password',password);
+                            var url = "${pageContext.request.contextPath}/Test/login";
+                            window.location.href = url;
 
                             alert("success");
                         } else {

@@ -219,6 +219,12 @@ public class TestController {
         return new ModelAndView("login");
     }
 
+    @RequestMapping(value = "registerpage")
+    public ModelAndView registerpage(){
+
+        return new ModelAndView("registerpage");
+
+    }
     //ajax判断传递的值是否正确
     @RequestMapping(value = "ver")
     public
