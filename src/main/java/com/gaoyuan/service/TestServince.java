@@ -17,4 +17,5 @@ public interface TestServince {
 
     public int judgeUser(String name);
     public  int insertFile(Map map);
+    public  int InsertBookMost(Map map);
 }

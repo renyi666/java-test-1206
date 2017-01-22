@@ -6,6 +6,8 @@ import com.gaoyuan.model.Book;
 import com.gaoyuan.model.ResultJson;
 import com.gaoyuan.model.User;
 import com.gaoyuan.service.TestServince;
+import com.sun.org.apache.bcel.internal.generic.VariableLengthInstruction;
+import com.sun.org.apache.xpath.internal.operations.Number;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -189,9 +191,7 @@ public class TestController {
 
 
     @RequestMapping(value = "dologin")
-    public
-    @ResponseBody
-    String dologin(HttpServletRequest request) {
+    public @ResponseBody String dologin(HttpServletRequest request) {
 
         String nickname = request.getParameter("nickname");
         Integer password = Integer.valueOf(request.getParameter("password"));
@@ -227,9 +227,7 @@ public class TestController {
     }
     //ajax判断传递的值是否正确
     @RequestMapping(value = "ver")
-    public
-    @ResponseBody
-    AjaxReturn ver(HttpServletRequest request) {
+    public @ResponseBody AjaxReturn ver(HttpServletRequest request) {
 
 
         AjaxReturn ajaxReturn = new AjaxReturn();
@@ -316,5 +314,31 @@ public class TestController {
 
     }
 
+    @RequestMapping(value = "ceshiThread")
+    public  void  ceshiThread(){
+
+        for (int i=0;i<30;i++){
+            System.out.println(Thread.currentThread().getName() + " " + i);
+            if(i==28){
+                Thread thread = new CeshiThread();
+                Thread thread1  =   new CeshiThread();
+                thread.start();
+                thread1.start();
+
+
+            }
+        }
+
+    }
+
+    @RequestMapping (value = "ceshiInsert")
+    public  void ceshiInsert(){
+        long num    =800000;
+        int i=10;
+        int a;
+
+
+
+    }
 
 }

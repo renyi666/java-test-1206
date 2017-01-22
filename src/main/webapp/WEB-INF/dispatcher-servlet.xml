@@ -14,7 +14,7 @@
         <property name="suffix" value=".jsp"/>
     </bean>
     <!--web-inf请求资源文件-->
-<mvc:resources mapping="/js/**" location="/WEB-INF/js/"/>
+    <mvc:resources mapping="/js/**" location="/WEB-INF/js/"/>
     <mvc:resources mapping="/css/**" location="/WEB-INF/css/"/>
 
     <!-- 输出对象转JSON支持 -->
@@ -27,7 +27,6 @@
             </list>
         </property>
     </bean>
-
 
 
 </beans>

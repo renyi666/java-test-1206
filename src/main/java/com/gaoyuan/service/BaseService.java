@@ -24,7 +24,7 @@ public class BaseService implements TestServince {
     private UserDao Userdao;
     @Autowired
 
-    private FileDao  FileDao;
+    private FileDao FileDao;
 
     @Override
     public Book getByIsbn(Integer isbn) {
@@ -49,6 +49,11 @@ public class BaseService implements TestServince {
     @Override
     public int insertFile(Map map) {
         return FileDao.AddFile(map);
+    }
+
+    @Override
+    public int InsertBookMost(Map map) {
+        return 0;
     }
 
     @Override
