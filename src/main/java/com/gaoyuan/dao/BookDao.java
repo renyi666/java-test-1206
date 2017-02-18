@@ -12,4 +12,5 @@ public interface BookDao {
     public Book getByIsbn(Map map);
     public int addbook(Book book);
     public List getall();
+    public  int addbookall(List list);
 }

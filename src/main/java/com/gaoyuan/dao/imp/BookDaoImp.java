@@ -39,5 +39,9 @@ public class BookDaoImp extends SqlSessionDaoSupport implements BookDao {
         return getSqlSession().selectList("com.gaoyuan.ceshi.mapper.bookMapper.getAll");
     }
 
+    @Override
+    public int addbookall(List list) {
+        return getSqlSession().insert("com.gaoyuan.ceshi.mapper.bookMapper.addbookall", list);    }
+
 
 }

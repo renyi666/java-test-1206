@@ -24,11 +24,11 @@
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
         <property name="username" value="root"/>
-        <property name="password" value="root"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/cesh?useUnicode=true&amp;characterEncoding=UTF8&amp;zeroDateTimeBehavior=convertToNull"/>
+        <property name="password" value="Gygkk19931210"/>
+        <property name="url" value="jdbc:mysql://rm-bp10w3fy7r5w031p6o.mysql.rds.aliyuncs.com:3306/cesh?useUnicode=true&amp;characterEncoding=UTF8&amp;zeroDateTimeBehavior=convertToNull&amp;useSSL=true"/>
     </bean>
 
-
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
@@ -53,9 +53,11 @@
     <bean id="BookDao" class="com.gaoyuan.dao.imp.BookDaoImp"></bean>
     <bean id="UserDao" class="com.gaoyuan.dao.imp.UserDaoImp"></bean>
     <bean id="FileDao" class="com.gaoyuan.dao.imp.FileDaoImp"></bean>
+    <bean id="BlogDao" class="com.gaoyuan.dao.imp.BlogDaoImp"></bean>
 
 
     <bean id="baseService" class="com.gaoyuan.service.BaseService"></bean>
+    <bean id="BlogService" class="com.gaoyuan.service.BlogService"></bean>
 
     <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
@@ -76,7 +78,7 @@
                      pointcut-ref="transactionPointCuts" />
     </aop:config>
     <aop:aspectj-autoproxy/>
-
+    <context:annotation-config />
     <mvc:annotation-driven >
         <mvc:message-converters register-defaults="true">
             <!-- StringHttpMessageConverter编码为UTF-8，防止乱码 -->
@@ -104,5 +106,21 @@
     <context:component-scan base-package="com.gaoyuan">
         <!--<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>-->
     </context:component-scan>
+
+    <!--拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <p:exclude-mapping path="/user/login"></p:exclude-mapping>
+            <p:exclude-mapping path="/user/register"></p:exclude-mapping>
+            <p:exclude-mapping path="/user/registercheck"></p:exclude-mapping>
+            <p:exclude-mapping path="/user/logincheck"></p:exclude-mapping>
+            <p:exclude-mapping path="/error/index"></p:exclude-mapping>
+
+            <bean id="loginInterceptor"  class="com.gaoyuan.Interceptor.LoginInterceptor">
+
+            </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
 </beans>

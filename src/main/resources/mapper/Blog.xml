@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        <mapper namespace="com.gaoyuan.ceshi.mapper.blogMapper">
+        <select id="getByUserId" parameterType="java.util.Map"
+                resultMap="resultMap">
+                select * from blog
+                <where>
+
+                        user_id = ${user_id}
+                </where>
+        </select>
+
+        <resultMap id="resultMap" type="com.gaoyuan.model.Blog">
+
+
+
+
+                <id property="id" column="id"/>
+                <result property="title" column="title"/>
+                <result property="content" column="content"/>
+                <result property="pub_date" column="pub_date"/>
+                <result property="user_id" column="user_id"/>
+
+
+
+        </resultMap>
+</mapper>

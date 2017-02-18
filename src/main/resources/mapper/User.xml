@@ -13,8 +13,8 @@
     <insert id="insertUser" parameterType="com.gaoyuan.model.User" useGeneratedKeys="true" keyProperty="id">
 
 
- INSERT INTO user (nickname,password)
-          VALUES ('${name}','${password}');
+ INSERT INTO user (nickname,password,mobile,email,address)
+          VALUES ('${name}','${password}','${mobile}','${email}','${address}');
     </insert>
 
     <resultMap id="resultMap" type="com.gaoyuan.model.User">
@@ -23,8 +23,11 @@
         <result property="nickname" column="nickname"/>
 
         <result property="password" column="password"/>
+        <result property="mobile" column="mobile"/>
 
+        <result property="email" column="email"/>
 
+        <result property="address" column="address"/>
 
 
     </resultMap>

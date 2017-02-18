@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -54,6 +55,11 @@ public class BaseService implements TestServince {
     @Override
     public int InsertBookMost(Map map) {
         return 0;
+    }
+
+    @Override
+    public int addBookAll(List list) {
+        return  BookDao.addbookall(list);
     }
 
     @Override

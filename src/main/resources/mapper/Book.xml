@@ -19,6 +19,12 @@
         INSERT INTO  book (name,isbn) VALUES ('${name}','${isbn}');
 
     </insert>
+    <insert id="addbookall" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO  book (name,isbn) VALUES <foreach collection="list" item="item" separator=",">
+
+        (#{item.name},#{item.isbn})
+    </foreach>
+    </insert>
 
     <resultMap id="resultMap" type="com.gaoyuan.model.Book">
 
