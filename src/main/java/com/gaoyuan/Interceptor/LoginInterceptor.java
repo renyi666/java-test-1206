@@ -7,25 +7,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**拦截器拦截登陆
+/**
+ * 拦截器拦截登陆
  * Created by gaoyuan on 2017/2/16.
  */
 
 
-public class LoginInterceptor  implements HandlerInterceptor{
+public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        HttpSession session =   httpServletRequest.getSession();
+        HttpSession session = httpServletRequest.getSession();
 
 
-
-        if(session.getAttribute("userId")==null){
-httpServletResponse.sendRedirect("/user/login");
+        if (session.getAttribute("userId") == null) {
+            httpServletResponse.sendRedirect("/user/login");
 
         }
 
 
-        return  true;
+        return true;
     }
 
     @Override

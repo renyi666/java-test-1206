@@ -14,7 +14,7 @@
 <body>
 
 <table>
-    <form action="/user/logincheck" method="post">
+    <form action="/user/login" method="post">
 <td>
     <input type="text" name="name" value="">
 </td>

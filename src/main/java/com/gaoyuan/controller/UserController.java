@@ -35,12 +35,54 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/login")
-    public ModelAndView login(HttpSession session,HttpServletRequest request) {
+    public ModelAndView login(HttpSession session,HttpServletRequest request, RedirectAttributes redirectAttributes) {
 
         if(session.getAttribute("userId")!=null){
 
             return new ModelAndView("redirect:/blog/index");
         }
+
+
+        //如果是post方法，则判断表单提交数据
+        if(request.getMethod()=="POST"){
+
+            //如果为空就跳到自定义显示错误页面
+            if (request.getParameter("name") == "" || request.getParameter("password") == "") {
+                //跳转的时候传值
+                redirectAttributes.addAttribute("status", -1);
+                return new ModelAndView("redirect:/error/index");
+            }
+
+            HashMap map = new HashMap();
+            map.put("nickname", '"' + request.getParameter("name") + '"');
+            User user = UserDao.getByNickname(map);
+
+            //查询出的用户为空
+            if (user == null) {
+                redirectAttributes.addAttribute("status", -2);
+
+                return  new ModelAndView("redirect:/error/index");
+            }
+
+            if(!user.getPassword().equals(request.getParameter("password"))){
+
+                System.out.println(user.getPassword());
+                System.out.println(request.getParameter("password"));
+                redirectAttributes.addAttribute("status", -1);
+
+                return new ModelAndView("redirect:/error/index");
+
+            }
+
+            //设置session
+            System.out.println(user.getId()+"=====================bbbbbb");
+            session.setAttribute("userId", user.getId());
+            session.setAttribute("userInfo",user);
+
+            return  new ModelAndView("redirect:/blog/index");
+
+        }
+
 
         System.out.println(session.getAttribute("userId"));
 
