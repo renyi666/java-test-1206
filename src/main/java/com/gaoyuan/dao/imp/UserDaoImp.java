@@ -33,4 +33,10 @@ public class UserDaoImp extends SqlSessionDaoSupport implements UserDao {
         System.out.println("third");
         return getSqlSession().insert("com.gaoyuan.ceshi.mapper.userMapper.insertUser", map);
     }
+
+    @Override
+    public User getById(Map map) {
+
+        return getSqlSession().selectOne("com.gaoyuan.ceshi.mapper.userMapper.getById", map);
+    }
 }

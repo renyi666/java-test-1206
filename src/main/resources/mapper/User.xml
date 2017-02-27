@@ -16,6 +16,12 @@
  INSERT INTO user (nickname,password,mobile,email,address)
           VALUES ('${name}','${password}','${mobile}','${email}','${address}');
     </insert>
+    <select id="getById" parameterType="java.util.Map" resultMap="resultMap">
+        SELECT  * from USER
+        <where>
+            id =${id}
+        </where>
+    </select>
 
     <resultMap id="resultMap" type="com.gaoyuan.model.User">
         <id property="id" column="id"/>

@@ -114,9 +114,9 @@
             <p:exclude-mapping path="/user/login"></p:exclude-mapping>
             <p:exclude-mapping path="/user/register"></p:exclude-mapping>
             <p:exclude-mapping path="/user/registercheck"></p:exclude-mapping>
-            <p:exclude-mapping path="/user/logincheck"></p:exclude-mapping>
+            <!--<p:exclude-mapping path="/user/logincheck"></p:exclude-mapping>-->
             <p:exclude-mapping path="/error/index"></p:exclude-mapping>
-
+            <p:exclude-mapping path="/css/*.css"/>
             <bean id="loginInterceptor"  class="com.gaoyuan.Interceptor.LoginInterceptor">
 
             </bean>

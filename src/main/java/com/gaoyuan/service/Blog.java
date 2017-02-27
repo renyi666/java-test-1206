@@ -8,5 +8,10 @@ import java.util.Map;
  */
 public interface Blog {
     List getByUserId(Map map);
+    int insertBlog(Map map);
+    List getAll();
+    List testAll();
+    com.gaoyuan.model.Blog getByBlogId(Map map);
+    int deleteById(Map map);
 
 }

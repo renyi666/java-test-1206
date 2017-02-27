@@ -3,11 +3,13 @@ package com.gaoyuan.controller;
 import com.fasterxml.jackson.databind.introspect.VirtualAnnotatedMember;
 import com.gaoyuan.dao.UserDao;
 import com.gaoyuan.model.Error;
+import com.gaoyuan.model.ResultJson;
 import com.gaoyuan.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -66,8 +68,6 @@ public class UserController {
 
             if(!user.getPassword().equals(request.getParameter("password"))){
 
-                System.out.println(user.getPassword());
-                System.out.println(request.getParameter("password"));
                 redirectAttributes.addAttribute("status", -1);
 
                 return new ModelAndView("redirect:/error/index");
@@ -75,16 +75,18 @@ public class UserController {
             }
 
             //设置session
-            System.out.println(user.getId()+"=====================bbbbbb");
+
             session.setAttribute("userId", user.getId());
             session.setAttribute("userInfo",user);
 
+            //判断是否点击记住密码十五天
+            if(request.getParameter("password").equals("on")){
+                session.setMaxInactiveInterval(60*60*24*15);
+            }
             return  new ModelAndView("redirect:/blog/index");
 
         }
 
-
-        System.out.println(session.getAttribute("userId"));
 
         ModelAndView modelAndView = new ModelAndView();
         return modelAndView;
@@ -96,14 +98,17 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/logincheck")
-    public String logincheck(HttpServletRequest request, RedirectAttributes redirectAttributes, HttpSession session) {
+    public @ResponseBody
+    ResultJson logincheck(HttpServletRequest request, RedirectAttributes redirectAttributes, HttpSession session,ResultJson resultJson) {
 
 
         //如果为空就跳到自定义显示错误页面
         if (request.getParameter("name") == "" || request.getParameter("password") == "") {
             //跳转的时候传值
             redirectAttributes.addAttribute("status", -1);
-            return "redirect:/error/index";
+            resultJson.setMsg("1");
+            resultJson.setSuccess(false);
+            return resultJson;
         }
 
         HashMap map = new HashMap();
@@ -113,22 +118,28 @@ public class UserController {
         //查询出的用户为空
         if (user == null) {
             redirectAttributes.addAttribute("status", -2);
+            resultJson.setMsg("1");
+            resultJson.setSuccess(false);
+            return resultJson;
 
-            return "redirect:/error/index";
         }
         if(user.getPassword()!=request.getParameter("password")){
             redirectAttributes.addAttribute("status", -1);
 
-            return "redirect:/error/index";
+            resultJson.setMsg("1");
+            resultJson.setSuccess(false);
+            return resultJson;
 
         }
 
         //设置session
-        System.out.println(user.getId()+"=====================bbbbbb");
+
         session.setAttribute("userId", user.getId());
         session.setAttribute("userInfo",user);
 
-        return "redirect:/blog/index";
+        resultJson.setMsg("2");
+        resultJson.setSuccess(true);
+        return resultJson;
 
     }
 
@@ -149,7 +160,7 @@ public class UserController {
     @RequestMapping(value = "/registercheck")
     public String registercheck(HttpServletRequest request, User user, RedirectAttributes redirectAttributes) {
 
-        System.out.println(request.getParameter("name"));
+
         //为空则跳转错误页面
         if (request.getParameter("name") == "" || request.getParameter("password") == "") {
             redirectAttributes.addAttribute("status", -3);

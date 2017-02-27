@@ -9,7 +9,32 @@
                         user_id = ${user_id}
                 </where>
         </select>
+        <insert id="insertBlog" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+                INSERT  INTO  blog(title,content,pub_date,user_id,create_time) VALUES  ('${title}','${content}','${pub_date}','${user_id}',now());
 
+
+        </insert>
+        <select id="getAll" resultMap="resultMap">
+
+                SELECT  * FROM  blog
+
+        </select>
+        <select id="testAll" resultMap="resultMap1">
+                SELECT  * FROM  blog b,user u WHERE b.user_id=u.id
+
+        </select>
+        <select id="getByBlogId" parameterType="java.util.Map" resultMap="resultMap">
+                SELECT  * FROM blog <where>
+                id  =${id}
+
+        </where>
+        </select>
+
+        <delete id="deleteById" parameterType="java.util.Map">
+            DELETE from blog <where>
+            id =${id}
+        </where>
+        </delete>
         <resultMap id="resultMap" type="com.gaoyuan.model.Blog">
 
 
@@ -20,8 +45,26 @@
                 <result property="content" column="content"/>
                 <result property="pub_date" column="pub_date"/>
                 <result property="user_id" column="user_id"/>
+                <result property="create_time" column="create_time"></result>
 
+        </resultMap>
 
+        <resultMap id="resultMap1" type="com.gaoyuan.model.Blog">
+
+                <id property="id" column="id"/>
+                <result property="title" column="title"/>
+                <result property="content" column="content"/>
+                <result property="pub_date" column="pub_date"/>
+                <result property="user_id" column="user_id"/>
+                <result property="create_time" column="create_time"></result>
+                <association property="user" javaType="com.gaoyuan.model.User">
+                        <id property="id" column="id"/>
+                        <result property="nickname" column="nickname"/>
+                        <result property="password" column="password"/>
+                        <result property="mobile" column="mobile"/>
+                        <result property="email" column="email"/>
+                        <result property="address" column="address"/>
+                </association>
 
         </resultMap>
 </mapper>

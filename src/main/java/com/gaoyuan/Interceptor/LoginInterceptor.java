@@ -20,10 +20,13 @@ public class LoginInterceptor implements HandlerInterceptor {
 
 
         if (session.getAttribute("userId") == null) {
-            httpServletResponse.sendRedirect("/user/login");
 
+            httpServletResponse.sendRedirect("/user/login");
+//            System.out.println("ccc_____________-----------");
+            return  false;
         }
 
+//        System.out.println("ccc++++++++++===");
 
         return true;
     }

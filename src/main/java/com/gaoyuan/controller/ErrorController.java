@@ -43,6 +43,14 @@ public class ErrorController {
                 error.setStatus(-5);
                 error.setMessage("注册用户失败");
                 break;
+            case -6:
+                error.setStatus(-6);
+                error.setMessage("删除失败");
+                break;
+            case -7:
+                error.setStatus(-7);
+                error.setMessage("没有找到");
+                break;
         }
 
 

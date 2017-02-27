@@ -20,13 +20,16 @@ public class BlogDaoImp  extends SqlSessionDaoSupport implements BlogDao {
     }
 
     @Override
-    public Blog getAll() {
-        return null;
+    public List<Object> getAll() {
+
+
+        return  getSqlSession().selectList("com.gaoyuan.ceshi.mapper.blogMapper.getAll");
+
     }
 
     @Override
     public int insertBlog(Map map) {
-        return 0;
+        return getSqlSession().insert("com.gaoyuan.ceshi.mapper.blogMapper.insertBlog",map);
     }
 
     /**
@@ -38,5 +41,23 @@ public class BlogDaoImp  extends SqlSessionDaoSupport implements BlogDao {
     public List<Blog> getBlog(Map map) {
 
         return  getSqlSession().selectList("com.gaoyuan.ceshi.mapper.blogMapper.getByUserId",map);
+    }
+
+    @Override
+    public List testAll() {
+        return  getSqlSession().selectList("com.gaoyuan.ceshi.mapper.blogMapper.testAll");
+
+    }
+
+    @Override
+    public Blog getByBlogId(Map map) {
+        return  getSqlSession().selectOne("com.gaoyuan.ceshi.mapper.blogMapper.getByBlogId",map);
+
+    }
+
+    @Override
+    public int deleteById(Map map) {
+        return  getSqlSession().delete("com.gaoyuan.ceshi.mapper.blogMapper.deleteById",map);
+
     }
 }

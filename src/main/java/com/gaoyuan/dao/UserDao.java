@@ -10,6 +10,7 @@ import java.util.Map;
 public interface UserDao {
     public User getByNickname(Map map);
     public int insertUser(Map map);
+    public  User getById(Map map);
 
 
 
